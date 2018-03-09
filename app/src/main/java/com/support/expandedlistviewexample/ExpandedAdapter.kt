@@ -8,14 +8,13 @@ import android.widget.ExpandableListView
 import android.widget.TextView
 import android.view.LayoutInflater
 import android.graphics.Typeface
-import android.widget.CheckBox
 
 
 /**
  * Created by admin on 3/9/2018.
  */
 
-class ExpandedAdapter(private var _mHeader: ArrayList<String>, private var _mChild: HashMap<String, List<String>>, private var context: Context, private var mselitem: ArrayList<String>) : BaseExpandableListAdapter() {
+class ExpandedAdapter(private var _mHeader: ArrayList<String>, private var _mChild: HashMap<String, List<String>>, private var context: Context, private var mselitem: ArrayList<SelModel>) : BaseExpandableListAdapter() {
 
 
     override fun getGroupCount(): Int {
@@ -82,7 +81,11 @@ class ExpandedAdapter(private var _mHeader: ArrayList<String>, private var _mChi
                 .findViewById(R.id.cb) as CheckBox
 
         cb.isChecked = mselitem.contains(expandedListText)*/
-        if (mselitem.contains(expandedListText)) {
+        val msel = SelModel()
+        msel.item = expandedListText
+        msel.parentpos = groupPosition
+        msel.childpos = childPosition
+        if (StaticData.isPresent(mselitem,msel)) {
             expandedListTextView.setTextColor(context.resources.getColor(android.R.color.holo_red_dark))
         }else{
             expandedListTextView.setTextColor(context.resources.getColor(android.R.color.darker_gray))
