@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.ExpandableListView
 import java.io.IOException
 import com.google.gson.Gson
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListener {
@@ -16,7 +18,7 @@ class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListene
     private lateinit var mAdapter: ExpandedAdapter
     private lateinit var mHeader: ArrayList<String>
     private var mselitem: ArrayList<SelModel> = ArrayList()
-    private var mchild: HashMap<String, List<String>> = HashMap()
+    private var mchild: TreeMap<String, List<String>> = TreeMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,28 +59,30 @@ class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListene
 
     private fun populateData(loadJSONFromAsset: String?) {
         val gson = Gson()
+        val mMap:HashMap<String,List<String>>  = HashMap()
         val student = gson.fromJson(loadJSONFromAsset, JsonModel::class.java)
         Log.d("ssltag", "$student one = ${student.one!!.size} two = ${student.two!!.size} three = ${student.three!!.size} four = ${student.four!!.size} five = ${student.five!!.size}")
         if (!student.one!!.isEmpty()) {
-            mchild["one"] = student.one!!
+            mMap["one"] = student.one!!
             Log.d("ssltag", "one = ${student.one}")
         }
         if (!student.two!!.isEmpty()) {
-            mchild["two"] = student.two!!
+            mMap["two"] = student.two!!
             Log.d("ssltag", "two = ${student.two} ")
         }
         if (!student.three!!.isEmpty()) {
-            mchild["three"] = student.three!!
+            mMap["three"] = student.three!!
             Log.d("ssltag", "three = ${student.three}")
         }
         if (!student.four!!.isEmpty()) {
-            mchild["four"] = student.four!!
+            mMap["four"] = student.four!!
             Log.d("ssltag", "four = ${student.four}")
         }
         if (!student.five!!.isEmpty()) {
-            mchild["five"] = student.five!!
+            mMap["five"] = student.five!!
             Log.d("ssltag", "five = ${student.five}")
         }
+        mchild.putAll(mMap)
         mHeader = ArrayList(mchild.keys)
         Log.d("ssltag", "keys = $mHeader")
         Log.d("ssltag", "five = $mchild")

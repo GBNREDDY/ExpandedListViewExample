@@ -8,13 +8,14 @@ import android.widget.ExpandableListView
 import android.widget.TextView
 import android.view.LayoutInflater
 import android.graphics.Typeface
+import java.util.*
 
 
 /**
  * Created by admin on 3/9/2018.
  */
 
-class ExpandedAdapter(private var _mHeader: ArrayList<String>, private var _mChild: HashMap<String, List<String>>, private var context: Context, private var mselitem: ArrayList<SelModel>) : BaseExpandableListAdapter() {
+class ExpandedAdapter(private var _mHeader: ArrayList<String>, private var _mChild: TreeMap<String, List<String>>, private var context: Context, private var mselitem: ArrayList<SelModel>) : BaseExpandableListAdapter() {
 
 
     override fun getGroupCount(): Int {
