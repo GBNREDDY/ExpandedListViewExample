@@ -11,7 +11,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListener {
+class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListener, ExpandableListView.OnGroupClickListener {
 
 
     private lateinit var elv: ExpandableListView
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListene
         elv = findViewById(R.id.elv)
 
         elv.setOnChildClickListener(this)
+        elv.setOnGroupClickListener(this)
         if (savedInstanceState?.getParcelableArrayList<SelModel>("result") != null) {
             mselitem = savedInstanceState.getParcelableArrayList<SelModel>("result")
         }
@@ -40,6 +41,10 @@ class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListene
         mAdapter.notifyDataSetChanged()
     }
 
+    override fun onGroupClick(ev: ExpandableListView?, v: View?, position: Int, id: Long): Boolean {
+        Log.d("ssltag", "$position $id")
+        return true
+    }
 
     override fun onChildClick(p0: ExpandableListView?, v: View?, groupPosition: Int, childPosition: Int, id: Long): Boolean {
         val s = mchild[mHeader[groupPosition]]!![childPosition]
@@ -47,8 +52,8 @@ class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListene
         msel.parentpos = groupPosition
         msel.childpos = childPosition
         msel.item = s
-        if (StaticData.isPresent(mselitem,msel)) {
-           mselitem.remove(StaticData.remove(mselitem, msel))
+        if (StaticData.isPresent(mselitem, msel)) {
+            mselitem.remove(StaticData.remove(mselitem, msel))
         } else {
             mselitem.add(msel)
         }
@@ -59,7 +64,7 @@ class MainActivity : AppCompatActivity(), ExpandableListView.OnChildClickListene
 
     private fun populateData(loadJSONFromAsset: String?) {
         val gson = Gson()
-        val mMap:HashMap<String,List<String>>  = HashMap()
+        val mMap: HashMap<String, List<String>> = HashMap()
         val student = gson.fromJson(loadJSONFromAsset, JsonModel::class.java)
         Log.d("ssltag", "$student one = ${student.one!!.size} two = ${student.two!!.size} three = ${student.three!!.size} four = ${student.four!!.size} five = ${student.five!!.size}")
         if (!student.one!!.isEmpty()) {
