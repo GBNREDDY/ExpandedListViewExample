@@ -86,10 +86,11 @@ class ExpandedAdapter(private var _mHeader: ArrayList<String>, private var _mChi
         msel.item = expandedListText
         msel.parentpos = groupPosition
         msel.childpos = childPosition
+        expandedListTextView.setTypeface(null, Typeface.BOLD)
         if (StaticData.isPresent(mselitem,msel)) {
             expandedListTextView.setTextColor(context.resources.getColor(android.R.color.holo_red_dark))
         }else{
-            expandedListTextView.setTextColor(context.resources.getColor(android.R.color.darker_gray))
+            expandedListTextView.setTextColor(context.resources.getColor(android.R.color.black))
         }
 
         expandedListTextView.text = expandedListText

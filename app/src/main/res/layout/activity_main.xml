@@ -12,9 +12,11 @@
        android:id="@+id/elv"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="0.5dp"
+        android:groupIndicator="@null"
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-<!-- android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"-->
+<!-- android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" -->
 </android.support.constraint.ConstraintLayout>
